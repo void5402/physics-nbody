@@ -8,6 +8,7 @@
 #include "part.hpp"
 #include "calc.hpp"
 #include <stdint.h>
+#include <float.h>
 
 using namespace std;
 
