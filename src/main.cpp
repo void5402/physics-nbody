@@ -8,7 +8,10 @@
 #include "part.hpp"
 #include "calc.hpp"
 #include <stdint.h>
-#include <float.h>
+#ifndef _Float32
+typedef float _Float32;
+#endif
+
 
 using namespace std;
 
