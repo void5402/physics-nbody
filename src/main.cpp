@@ -7,6 +7,7 @@
 #include "configuration.hpp"
 #include "part.hpp"
 #include "calc.hpp"
+#include <stdint.h>
 
 using namespace std;
 
