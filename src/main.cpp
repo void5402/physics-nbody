@@ -3,21 +3,23 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <benchmark/benchmark.h>
+#include <stdint.h>
 #include "events.hpp"
 #include "configuration.hpp"
 #include "part.hpp"
 #include "calc.hpp"
-#include <stdint.h>
+
 #ifndef _Float32
 typedef float _Float32;
 #endif
-
 
 using namespace std;
 
 float zoom = 2.5f;
 sf::Vector2f viewlocation = conf::window_size_f * 0.5f;
 sf::Vector2f newpt = {0.f,0.f};
+
 vector<pt> createpoints(uint32_t count)
 {
     vector<pt> pts;
@@ -36,7 +38,15 @@ vector<pt> createpoints(uint32_t count)
     return pts;
 };
 
-
+static void BM_NBodySimulation(benchmark::State& state) {
+  std::vector<pt> sus = createpoints(state.range(0));
+  for (auto _ : state) {
+    calculations(sus);
+  }
+}
+BENCHMARK(BM_NBodySimulation)->Arg(100)->Arg(1000)->Arg(10000);
+BENCHMARK_MAIN();
+/*
 int main(){
     
     vector<pt> pts = createpoints(conf::start_count);
@@ -63,3 +73,4 @@ int main(){
         window.display();
     }
 }
+*/

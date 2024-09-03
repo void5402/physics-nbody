@@ -5,4 +5,6 @@
 #include <stdint.h>
 #include <cmath>
 
-void calculations(std::vector<pt>& pts);
+typedef void (*calculations_func)(std::vector<pt>&);
+extern calculations_func calculations; //black magic??
+
