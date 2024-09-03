@@ -3,7 +3,7 @@
 #include <string>
 #include <random>
 #include <vector>
-#include <benchmark/benchmark.h>
+
 #include <stdint.h>
 #include "events.hpp"
 #include "configuration.hpp"
@@ -14,11 +14,19 @@
 typedef float _Float32;
 #endif
 
+//benching(uncomment for google benching)
+#define benching
+
+#ifdef benching
+#include <benchmark/benchmark.h>
+#endif
+
 using namespace std;
 
 float zoom = 2.5f;
 sf::Vector2f viewlocation = conf::window_size_f * 0.5f;
 sf::Vector2f newpt = {0.f,0.f};
+calculations_func calculations = calculationsv2;
 
 vector<pt> createpoints(uint32_t count)
 {
@@ -38,15 +46,21 @@ vector<pt> createpoints(uint32_t count)
     return pts;
 };
 
+
+#ifdef benching 
+
 static void BM_NBodySimulation(benchmark::State& state) {
   std::vector<pt> sus = createpoints(state.range(0));
   for (auto _ : state) {
     calculations(sus);
   }
 }
+
 BENCHMARK(BM_NBodySimulation)->Arg(100)->Arg(1000)->Arg(10000);
 BENCHMARK_MAIN();
-/*
+
+#else
+
 int main(){
     
     vector<pt> pts = createpoints(conf::start_count);
@@ -65,7 +79,7 @@ int main(){
         
         for(pt const& part : pts)
         {
-	        c.setSize(max(part.size,1.5f)*ve*2.f);
+	        c.setSize(max(log10f(part.mass)/2/zoom,1.5f)*ve*2.f);
             c.setOrigin(part.size,part.size);
             c.setPosition(part.po/zoom + viewlocation);
 	        window.draw(c);
@@ -73,4 +87,4 @@ int main(){
         window.display();
     }
 }
-*/
+#endif
