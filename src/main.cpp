@@ -76,12 +76,13 @@ int main(){
         calculations(pts);
         window.clear(sf::Color::Black);
         sf::RectangleShape c;
-        
+        float size = 0;
         for(pt const& part : pts)
         {
-	        c.setSize(max(log10f(part.mass)/2/zoom,1.5f)*ve*2.f);
-            c.setOrigin(part.size,part.size);
-            c.setPosition(part.po/zoom + viewlocation);
+          size = log10f(part.mass)/2/zoom;
+	        c.setSize(max(size,1.5f)*ve*2.f);
+          c.setOrigin(size,size);
+          c.setPosition(part.po/zoom + viewlocation);
 	        window.draw(c);
         }
         window.display();
