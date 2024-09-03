@@ -27,8 +27,23 @@ jobs:
     steps:
     - name: Install Linux Dependencies
       if: runner.os == 'Linux'
-      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev libbenchmark-dev
-
+      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
+    - name: Build and link against Google Benchmark
+      run: |
+        git clone https://github.com/google/benchmark.git
+        cd benchmark
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+        sudo cmake install .
+        cd ../../
+        mkdir build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+        cmake --build .
+        cmake -DCMAKE_PREFIX_PATH=/usr/local/lib/cmake/benchmark install .
+        ctest .
     - name: Checkout
       uses: actions/checkout@v4
 
