@@ -28,14 +28,6 @@ jobs:
     - name: Install Linux Dependencies
       if: runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev
-    - name: Cache Google Benchmark build
-      uses: actions/cache@v2
-      id: benchmark-cache
-      with:
-        path: ~/benchmark/build
-        key: ${{ runner.os }}-benchmark-${{ hashFiles('benchmark/CMakeLists.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-benchmark-
     - name: Build and link against Google Benchmark
       run: |
         git clone https://github.com/google/benchmark.git
@@ -43,7 +35,7 @@ jobs:
         cmake -E make_directory "build"
         cmake -E chdir "build" cmake -DBENCHMARK_DOWNLOAD_DEPENDENCIES=on -DCMAKE_BUILD_TYPE=Release ../
         cmake --build "build" --config Release
-        cmake --build "build" --config Release --target install
+        sudo cmake --build "build" --config Release --target install
     - name: Checkout
       uses: actions/checkout@v4
 
