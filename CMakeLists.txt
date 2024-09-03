@@ -13,7 +13,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 find_package(Freetype)
-find_package(benchmark OPTIONAL)
+find_package(benchmark)
 if (Benchmark_FOUND)
   target_link_libraries(main PRIVATE benchmark::benchmark)
 endif()
