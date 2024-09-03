@@ -34,7 +34,7 @@ jobs:
       id: benchmark-restore
       with:
         path: benchmark/build
-        key: ${{matrix.platform.name}}-${{matrix.config.name}}-benchmark
+        key: ${{ runner.os }}-benchmark
 
     - name: Build and link against Google Benchmark
       run: |
@@ -49,7 +49,7 @@ jobs:
       id: benchmark-cache
       with:
         path: benchmark/build
-        key: ${{matrix.platform.name}}-${{matrix.config.name}}-benchmark
+        key: ${{ runner.os }}-benchmark
 
 
     - name: Checkout
