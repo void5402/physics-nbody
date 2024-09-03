@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache/save@v4
       id: benchmark-restore
       with:
-        path: ~/benchmark/build
+        path: benchmark/build
         key: ${{ runner.os }}-benchmark
 
     - name: Build and link against Google Benchmark
@@ -48,7 +48,7 @@ jobs:
       uses: actions/cache/save@v4
       id: benchmark-cache
       with:
-        path: ~/benchmark/build
+        path: benchmark/build
         key: ${{ runner.os }}-benchmark
 
 
