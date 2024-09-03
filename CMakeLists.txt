@@ -18,7 +18,8 @@ find_package(Freetype)
 add_executable(main src/main.cpp src/events.cpp src/calc.cpp)
 target_link_libraries(main PRIVATE sfml-graphics Freetype)
 target_compile_features(main PRIVATE cxx_std_17)
-link_directories(benchmark/build/src)
+target_link_directories(main PRIVATE benchmark/build/src)
+target_include_directories(main PRIVATE benchmark/include)
 
 
 if(WIN32)
