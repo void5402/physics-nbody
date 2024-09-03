@@ -31,7 +31,7 @@ jobs:
 
     - name: Cache restore
       uses: actions/cache/save@v4
-      id: benchmark-restore
+      id: benchmark-cache
       with:
         path: ~/benchmark/build
         key: ${{ runner.os }}-benchmark
