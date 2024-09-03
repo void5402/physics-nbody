@@ -12,11 +12,13 @@ FetchContent_Declare(SFML
     EXCLUDE_FROM_ALL
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
-
-find_package(benchmark)
 find_package(Freetype)
+find_package(benchmark)
+if (Benchmark_FOUND)
+  target_link_libraries(main PRIVATE benchmark::benchmark)
+endif()
 add_executable(main src/main.cpp src/events.cpp src/calc.cpp)
-target_link_libraries(main PRIVATE sfml-graphics Freetype benchmark::benchmark)
+target_link_libraries(main PRIVATE sfml-graphics Freetype)
 target_compile_features(main PRIVATE cxx_std_17)
 
 
