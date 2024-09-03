@@ -15,7 +15,7 @@ typedef float _Float32;
 #endif
 
 //benching(uncomment for google benching)
-#define benching
+//#define benching
 
 #ifdef benching
 #include <benchmark/benchmark.h>
